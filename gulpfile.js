@@ -5,7 +5,8 @@ const runSequence = require('run-sequence');
 gulp.task('build', (done) => {
   runSequence(
     'clean:dist',
-    ['scripts',
+    ['readme:dist',
+      'scripts',
       'bundle'],
     'copy-typings',
     'create-package-json',

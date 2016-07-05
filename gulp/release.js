@@ -12,6 +12,16 @@ gulp.task('copy-typings', () => {
   .pipe(gulp.dest(config.PATHS.dist.base));
 });
 
+gulp.task('readme:dist', () => {
+  const basePkgJson = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
+  return gulp.src('./assets/readme.npm.tmpl.md')
+  .pipe($.template({
+    pkg: basePkgJson
+  }))
+  .pipe($.rename('README.md'))
+  .pipe(gulp.dest(config.PATHS.dist.base));
+});
+
 gulp.task('create-package-json', () => {
   const basePkgJson = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
 
