@@ -9,6 +9,7 @@ module.exports.PATHS = {
   tsSrcFiles: 'src/**/*.ts',
   jsFiles: ['gulpfile.js', 'gulp/*.js'],
   tsConfig: path.join(__dirname, '../tsconfig.json'),
+  typingsDir: 'typings',
   dist: {
     base: 'dist/',
     cjs: 'dist/',

@@ -7,6 +7,8 @@ gulp.task('build', (done) => {
     'clean:dist',
     ['scripts',
       'bundle'],
+    'copy-typings',
+    'create-package-json',
     done);
 });
 

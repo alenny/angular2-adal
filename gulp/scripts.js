@@ -17,7 +17,7 @@ gulp.task('scripts:ts', () =>
         .pipe(gulp.dest(config.PATHS.dist.ts))
 );
 
-// we create the the tsConfig outside the task for fast incremental compilations during a watch.
+// we create the tsConfig outside the task for fast incremental compilations during a watch.
 const taskConfigCjs = $.typescript.createProject(config.PATHS.tsConfig, {
     target: 'ES5',
     module: 'commonjs',

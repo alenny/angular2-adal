@@ -7,7 +7,12 @@ const config = require('./config');
 const fs = require('fs');
 const path = require('path');
 
-gulp.task('createPackageJson', () => {
+gulp.task('copy-typings', () => {
+  gulp.src(path.join(config.PATHS.typingsDir, 'adal/*'), { base: '.' })
+  .pipe(gulp.dest(config.PATHS.dist.base));
+});
+
+gulp.task('create-package-json', () => {
   const basePkgJson = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
 
   // remove scripts
