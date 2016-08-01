@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import 'rxjs/Rx';
 import {Observable} from "rxjs/Observable";
+import 'rxjs/Observable/bindCallback'
 import adalLib = require('adal');
 import {OAuthData} from "./oauthdata.model";
 
@@ -32,6 +33,8 @@ export class AdalService {
 
         // create instance with given config
         this.adalContext = adalLib.inject(configOptions);
+
+        window.AuthenticationContext = this.adalContext.constructor;
 
         // loginresource is used to set authenticated status
         this.updateDataFromCache(this.adalContext.config.loginResource);
@@ -74,7 +77,7 @@ export class AdalService {
     }
 
     public acquireToken(resource: string) {
-        return Observable.bindCallback(function (cb) {
+        return Observable.bindCallback((cb) => {
             this.adalContext.acquireToken(resource, function (error: string, tokenOut: string) {
                 if (error) {
                     this.adalContext.error('Error when acquiring token for resource: ' + resource, error);
@@ -83,7 +86,7 @@ export class AdalService {
                     cb(tokenOut);
                 }
             });
-        });
+        })();
     }
 
     public getUser(): Observable<adal.User> {
