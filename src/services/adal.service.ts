@@ -58,15 +58,7 @@ export class AdalService {
     }
 
     public handleWindowCallback(): void {
-        let hash = window.location.hash;
-        if (this.adalContext.isCallback(hash)) {
-            let requestInfo = this.adalContext.getRequestInfo(hash);
-            this.adalContext.saveTokenFromHash(requestInfo);
-            if (requestInfo.requestType === this.adalContext.REQUEST_TYPE.LOGIN) {
-                this.updateDataFromCache(this.adalContext.config.loginResource);
-            } else if (requestInfo.requestType === this.adalContext.REQUEST_TYPE.RENEW_TOKEN) {
-            }
-        }
+        this.adalContext.handleWindowCallback();
     }
 
     public getCachedToken(resource: string): string {
