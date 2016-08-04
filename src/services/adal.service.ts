@@ -67,7 +67,30 @@ export class AdalService {
             this.adalContext.saveTokenFromHash(requestInfo);
             if (requestInfo.requestType === this.adalContext.REQUEST_TYPE.LOGIN) {
                 this.updateDataFromCache(this.adalContext.config.loginResource);
+                
             } else if (requestInfo.requestType === this.adalContext.REQUEST_TYPE.RENEW_TOKEN) {
+                this.adalContext.callback = window.parent.callBackMappedToRenewStates[requestInfo.stateResponse];
+            }
+
+            if(requestInfo.stateMatch)
+            {
+                if (typeof this.adalContext.callback === 'function')
+                {
+                    if (requestInfo.requestType === this.adalContext.REQUEST_TYPE.RENEW_TOKEN) 
+                    {
+                        // Idtoken or Accestoken can be renewed
+                        if (requestInfo.parameters['access_token']) 
+                        {
+                            this.adalContext.callback(this.adalContext._getItem(this.adalContext.CONSTANTS.STORAGE.ERROR_DESCRIPTION)
+                                                        , requestInfo.parameters['access_token']);
+                        }
+                        else if (requestInfo.parameters['error']) 
+                        {
+                            this.adalContext.callback(this.adalContext._getItem(_adal.CONSTANTS.STORAGE.ERROR_DESCRIPTION), null);
+                            this.adalContext._renewFailed = true;
+                        }
+                    }
+                }
             }
         }
     }
