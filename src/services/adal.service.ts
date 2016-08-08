@@ -86,7 +86,7 @@ export class AdalService {
                         }
                         else if (requestInfo.parameters['error']) 
                         {
-                            this.adalContext.callback(this.adalContext._getItem(_adal.CONSTANTS.STORAGE.ERROR_DESCRIPTION), null);
+                            this.adalContext.callback(this.adalContext._getItem(this.adalContext.CONSTANTS.STORAGE.ERROR_DESCRIPTION), null);
                             this.adalContext._renewFailed = true;
                         }
                     }
@@ -141,18 +141,18 @@ export class AdalService {
         this.adalContext.verbose(message);
     }
 
+    public GetResourceForEndpoint(url: string): string
+    {
+        return this.adalContext.getResourceForEndpoint(url);
+    }
+
     private updateDataFromCache(resource: string): void {
         let token = this.adalContext.getCachedToken(resource);
         this.oauthData.isAuthenticated = token !== null && token.length > 0;
-        var user = this.adalContext.getCachedUser();
-        if (user) {
-            this.oauthData.userName = user.userName;
-            this.oauthData.profile = user.profile;
-            this.oauthData.loginError = this.adalContext.getLoginError();
-        } else {
-            this.oauthData.userName = '';
-            this.oauthData.profile = {};
-            this.oauthData.loginError = '';
-        }
+        var user = this.adalContext.getCachedUser() || { userName: '' };
+        this.oauthData.userName = user.userName;
+        this.oauthData.profile = user.profile;
+        this.oauthData.loginError = this.adalContext.getLoginError();
+
     };
 }
