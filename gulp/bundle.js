@@ -34,6 +34,11 @@ const bundleConfig = {
             main: 'index.js',
             defaultExtension: 'js'
         },
+
+        '@angular/http' : {
+            main: 'index.js',
+            defaultExtension: 'js'
+        },
         rxjs: {
             main: 'Rx.js',
             defaultExtension: 'js'

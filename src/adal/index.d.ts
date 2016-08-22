@@ -139,11 +139,25 @@ declare namespace adal {
 
         handleWindowCallback(): void;
 
+        callback : any;
+
+        _getItem : any;
+
+        _renewFailed : any;
+
+        CONSTANTS : any;
+
         log(level: number, message: string, error: any): void;
         error(message: string, error: any): void;
         warn(message: string): void;
         info(message: string): void;
         verbose(message: string): void;
     }
+
+}
+
+interface Window {
+    AuthenticationContext : any;
+    callBackMappedToRenewStates : any;
 }
 

@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Http, Response, Headers} from '@angular/http';
-import {AdalService} from 'angular2-adal/core';
 import {Observable} from 'rxjs/observable';
 import 'rxjs/Observable/bindCallback'
+import {AdalService} from './adal.service';
 
 
 @Injectable()

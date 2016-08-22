@@ -5,6 +5,9 @@ import 'rxjs/Observable/bindCallback'
 import adalLib = require('adal');
 import {OAuthData} from "./oauthdata.model";
 
+
+
+
 @Injectable()
 export class AdalService {
 
