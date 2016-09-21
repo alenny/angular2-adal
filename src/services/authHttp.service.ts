@@ -45,10 +45,14 @@ export class AuthHttp
             options1.headers = new Headers(options.headers.toJSON());
         }
 
-        if (this.adalService.userInfo.isAuthenticated) {
-            var resource = this.adalService.GetResourceForEndpoint(url);
-            var authenticatedCall = this.http.request(url, options).map(this.extractData).catch(this.handleError);
-            if (resource) {
+        var resource = this.adalService.GetResourceForEndpoint(url);
+        var authenticatedCall = this.http.request(url, options).map(this.extractData).catch(this.handleError);
+
+        
+         if (resource)
+         {
+            
+             if (this.adalService.userInfo.isAuthenticated){
                 authenticatedCall = this.adalService.acquireToken(resource)
                     .flatMap((token: string) => {
                         if (options1.headers == null) {
@@ -59,11 +63,15 @@ export class AuthHttp
                             .catch(this.handleError);
                     });
             }
+            else
+            {
+                authenticatedCall =  Observable.throw(new Error("User Not Authenticated."));
+            }
 
-            return authenticatedCall;
+            
         }
 
-        return Observable.throw(new Error("User Not Authenticated."));
+        return authenticatedCall;
     }
 
     private extractData(res: Response) {
@@ -71,7 +79,12 @@ export class AuthHttp
             throw new Error('Bad response status: ' + res.status);
         }
 
-        let body = res.json();
+        var body = {};
+        //if there is some content, parse it
+        if(res.status != 204 )
+        {
+            body = res.json();
+        }
         
         return body || {};
     }
