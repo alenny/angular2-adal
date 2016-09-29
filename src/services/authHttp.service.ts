@@ -31,6 +31,28 @@ export class AuthHttp
         return this.sendRequest(url, options1);
     }
 
+
+    patch(url: string, body: any, options?: RequestOptionsArgs) : Observable<any>
+    {
+        let options1 = new RequestOptions({ method: RequestMethod.Patch });
+        options1 = options1.merge(options);
+        return this.sendRequest(url, options1);
+    }
+
+    put(url: string, body: any, options?: RequestOptionsArgs) : Observable<any>
+    {
+        let options1 = new RequestOptions({ method: RequestMethod.Put });
+        options1 = options1.merge(options);
+        return this.sendRequest(url, options1);
+    }
+
+    head(url: string, options?: RequestOptionsArgs) : Observable<any>
+    {
+        let options1 = new RequestOptions({ method: RequestMethod.Put });
+        options1 = options1.merge(options);
+        return this.sendRequest(url, options1);
+    }
+
     private sendRequest(url: string, options: RequestOptionsArgs): Observable<any>
     {
         //make a copy
@@ -46,7 +68,7 @@ export class AuthHttp
         }
 
         var resource = this.adalService.GetResourceForEndpoint(url);
-        var authenticatedCall = this.http.request(url, options).map(this.extractData).catch(this.handleError);
+        var authenticatedCall: Observable<any>;
 
         
          if (resource)
@@ -67,8 +89,10 @@ export class AuthHttp
             {
                 authenticatedCall =  Observable.throw(new Error("User Not Authenticated."));
             }
-
-            
+        }
+        else
+        {
+            authenticatedCall = this.http.request(url, options).map(this.extractData).catch(this.handleError);
         }
 
         return authenticatedCall;
