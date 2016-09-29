@@ -1,10 +1,10 @@
 {
-  "name": "angular2-adal",
-  "version": "0.1.4",
+  "name": "ng2-adal",
+  "version": "0.1.0",
   "description": "Use Azure AD Library - ADAL in Angular 2",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/alenny/angular2-adal.git"
+    "url": "git+https://github.com/sureshchahal/angular2-adal.git"
   },
   "keywords": [
     "angular2",
@@ -17,12 +17,12 @@
     "adal-angular2",
     "adal-ng2"
   ],
-  "author": "Zhuyun Dai",
+  "author": "Suresh Chahal",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/alenny/angular2-adal/issues"
+    "url": "https://github.com/sureshchahal/angular2-adal/issues"
   },
-  "homepage": "https://github.com/alenny/angular2-adal#readme",
+  "homepage": "https://github.com/sureshchahal/angular2-adal#readme",
   "engines": {
     "node": ">=5.0.0"
   },
