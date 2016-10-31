@@ -12,7 +12,7 @@ const bundleConfig = {
         path.join('.', 'node_modules', '@angular', '*', 'package.json')
     ],
     paths: {
-        'angular2-adal/*': '*',
+        'ng2-adal/*': '*',
         '@angular/*': './node_modules/@angular/*',
         'adal.js': './node_modules/adal-angular/lib/adal.js',
         '*': './node_modules/*'
@@ -61,11 +61,11 @@ function bundle(moduleName, moduleBundleName, minify, done) {
 }
 
 gulp.task('bundle:cjs', ['scripts:cjs'], (done) => {
-    bundle('angular2-adal/core', 'angular2-adal', false, done);
+    bundle('ng2-adal/core', 'ng2-adal', false, done);
 });
 
 gulp.task('bundle:cjs:min', ['scripts:cjs'], (done) => {
-    bundle('angular2-adal/core', 'angular2-adal', true, done);
+    bundle('ng2-adal/core', 'ng2-adal', true, done);
 });
 
 gulp.task('bundle', ['bundle:cjs', 'bundle:cjs:min']);

@@ -1,7 +1,7 @@
 {
-  "name": "angular2-adal",
+  "name": "ng2-adal",
   "main": "index.d.ts",
-  "author": "Zhuyun Dai",
+  "author": "Suresh Chahal",
   "description": "Use Azure AD Library - ADAL in Angular 2",
   "globalDependencies": {
    
