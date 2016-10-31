@@ -5,56 +5,49 @@ import 'rxjs/Observable/bindCallback'
 import {AdalService} from './adal.service';
 
 @Injectable()
-export class AuthHttp
-{
+export class AuthHttp {
     constructor(private http: Http
-    ,private adalService : AdalService
+        , private adalService: AdalService
     ) { }
 
     get(url: string, options?: RequestOptionsArgs): Observable<any> {
-        let options1 = new RequestOptions({ method: RequestMethod.Get});
+        let options1 = new RequestOptions({ method: RequestMethod.Get });
         options1 = options1.merge(options);
         return this.sendRequest(url, options1);
     }
 
-    post(url: string, body: any, options?: RequestOptionsArgs) : Observable<any>
-    {
-        let options1 = new RequestOptions({ method: RequestMethod.Post });
+    post(url: string, body: any, options?: RequestOptionsArgs): Observable<any> {
+        let options1 = new RequestOptions({ method: RequestMethod.Post, body: body });
         options1 = options1.merge(options);
         return this.sendRequest(url, options1);
     }
 
-    delete(url: string, options?: RequestOptionsArgs): Observable<any>
-    {
+    delete(url: string, options?: RequestOptionsArgs): Observable<any> {
         let options1 = new RequestOptions({ method: RequestMethod.Delete });
         options1 = options1.merge(options);
         return this.sendRequest(url, options1);
     }
 
 
-    patch(url: string, body: any, options?: RequestOptionsArgs) : Observable<any>
-    {
-        let options1 = new RequestOptions({ method: RequestMethod.Patch });
+    patch(url: string, body: any, options?: RequestOptionsArgs): Observable<any> {
+        let options1 = new RequestOptions({ method: RequestMethod.Patch, body: body });
         options1 = options1.merge(options);
         return this.sendRequest(url, options1);
     }
 
-    put(url: string, body: any, options?: RequestOptionsArgs) : Observable<any>
-    {
+    put(url: string, body: any, options?: RequestOptionsArgs): Observable<any> {
+        let options1 = new RequestOptions({ method: RequestMethod.Put, body: body });
+        options1 = options1.merge(options);
+        return this.sendRequest(url, options1);
+    }
+
+    head(url: string, options?: RequestOptionsArgs): Observable<any> {
         let options1 = new RequestOptions({ method: RequestMethod.Put });
         options1 = options1.merge(options);
         return this.sendRequest(url, options1);
     }
 
-    head(url: string, options?: RequestOptionsArgs) : Observable<any>
-    {
-        let options1 = new RequestOptions({ method: RequestMethod.Put });
-        options1 = options1.merge(options);
-        return this.sendRequest(url, options1);
-    }
-
-    private sendRequest(url: string, options: RequestOptionsArgs): Observable<any>
-    {
+    private sendRequest(url: string, options: RequestOptionsArgs): Observable<any> {
         //make a copy
         let options1 = new RequestOptions();
         options1.method = options.method;
@@ -67,14 +60,17 @@ export class AuthHttp
             options1.headers = new Headers(options.headers.toJSON());
         }
 
+        if (options.body != null) {
+            options1.body = options.body;
+        }
+
         var resource = this.adalService.GetResourceForEndpoint(url);
         var authenticatedCall: Observable<any>;
 
-        
-         if (resource)
-         {
-            
-             if (this.adalService.userInfo.isAuthenticated){
+
+        if (resource) {
+
+            if (this.adalService.userInfo.isAuthenticated) {
                 authenticatedCall = this.adalService.acquireToken(resource)
                     .flatMap((token: string) => {
                         if (options1.headers == null) {
@@ -85,13 +81,11 @@ export class AuthHttp
                             .catch(this.handleError);
                     });
             }
-            else
-            {
-                authenticatedCall =  Observable.throw(new Error("User Not Authenticated."));
+            else {
+                authenticatedCall = Observable.throw(new Error("User Not Authenticated."));
             }
         }
-        else
-        {
+        else {
             authenticatedCall = this.http.request(url, options).map(this.extractData).catch(this.handleError);
         }
 
@@ -105,11 +99,10 @@ export class AuthHttp
 
         var body = {};
         //if there is some content, parse it
-        if(res.status != 204 )
-        {
+        if (res.status != 204) {
             body = res.json();
         }
-        
+
         return body || {};
     }
 
