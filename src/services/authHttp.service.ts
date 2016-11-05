@@ -107,7 +107,6 @@ export class AuthHttp {
     }
 
     private handleError(error: any) {
-        debugger;
         // In a real world app, we might send the error to remote logging infrastructure
         let errMsg = error.message || 'Server error';
         console.error(JSON.stringify(error)); // log to console instead
