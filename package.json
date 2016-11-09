@@ -1,6 +1,6 @@
 {
   "name": "ng2-adal",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Use Azure AD Library - ADAL in Angular 2",
   "repository": {
     "type": "git",
