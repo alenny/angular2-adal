@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import 'rxjs/Rx';
 import {Observable} from "rxjs/Observable";
 import 'rxjs/observable/bindCallback'
-import adalLib = require('adal');
+import * as adalLib from 'adal-angular';
 import {OAuthData} from "./oauthdata.model";
 
 

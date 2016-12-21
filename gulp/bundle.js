@@ -14,7 +14,7 @@ const bundleConfig = {
     paths: {
         'ng2-adal/*': '*',
         '@angular/*': './node_modules/@angular/*',
-        'adal.js': './node_modules/adal-angular/lib/adal.js',
+        'adal-angular': './node_modules/adal-angular/lib/adal.js',
         '*': './node_modules/*'
     },
     packages: {
