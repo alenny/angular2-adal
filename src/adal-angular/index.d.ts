@@ -1,4 +1,4 @@
-declare module 'adal' {
+declare module 'adal-angular' {
     export function inject(config: adal.Config): adal.AuthenticationContext;
 }
 
