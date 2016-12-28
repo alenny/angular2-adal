@@ -11,6 +11,9 @@
     "lib": [
       "es2015",
       "dom"
+    ],
+    "types": [
+      "adal"
     ]
   },
   "exclude": [

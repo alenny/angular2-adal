@@ -147,7 +147,7 @@ export class AdalService {
     private updateDataFromCache(resource: string): void {
         let token = this.adalContext.getCachedToken(resource);
         this.oauthData.isAuthenticated = token !== null && token.length > 0;
-        var user = this.adalContext.getCachedUser() || { userName: '' };
+        var user = this.adalContext.getCachedUser() || { userName: '', profile: undefined };
         if(user)
         {
             this.oauthData.userName = user.userName;

@@ -33,12 +33,13 @@
     "@angular/common": "^2.0.0",
     "@angular/compiler": "^2.0.0",
     "@angular/core": "^2.0.0",
-    "@angular/platform-browser": "^2.0.0",
     "@angular/http": "^2.0.0",
+    "@angular/platform-browser": "^2.0.0",
+    "@types/adal": "^1.0.22",
+    "adal-angular": "1.0.13",
     "reflect-metadata": "^0.1.8",
     "rxjs": "^5.0.0-beta.12",
-    "zone.js": "^0.6.21",
-    "adal-angular": "1.0.13"
+    "zone.js": "^0.6.21"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
