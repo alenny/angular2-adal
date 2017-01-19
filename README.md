@@ -6,4 +6,4 @@ This also provide AuthHttp class, which actually gets token in background for ex
 
 NPM Package: https://www.npmjs.com/package/ng2-adal
 
-Example and guideline: https://github.com/alenny/angular2-adal-example
+Example and guideline: https://github.com/ranveeraggarwal/ng2-adal-QuickStart
