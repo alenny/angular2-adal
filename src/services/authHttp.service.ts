@@ -50,19 +50,8 @@ export class AuthHttp {
         //make a copy
         let options1 = new RequestOptions();
         options1.method = options.method;
-
-        if (options.search != null) {
-            options1.search = new URLSearchParams(options.search.toString()).clone();
-        }
-
-        if (options.headers != null) {
-            options1.headers = new Headers(options.headers.toJSON());
-        }
-
-        if (options.body != null) {
-            options1.body = options.body;
-        }
-
+        options1 = options1.merge(options);
+        
         var resource = this.adalService.GetResourceForEndpoint(url);
         var authenticatedCall: Observable<any>;
 
