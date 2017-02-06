@@ -98,15 +98,20 @@ export class AdalService {
     }
 
     public acquireToken(resource: string) {
+        let errorMessage: string;
         return Observable.bindCallback((cb) => {
-            this.adalContext.acquireToken(resource, function (error: string, tokenOut: string) {
+            this.adalContext.acquireToken(resource, (error: string, tokenOut: string) => {
                 if (error) {
                     this.adalContext.error('Error when acquiring token for resource: ' + resource, error);
+                    errorMessage = error;
                     cb(null);
                 } else {
                     cb(tokenOut);
                 }
             });
+        }, function(token: string){
+            if(!token && errorMessage)
+                throw(errorMessage);
         })();
     }
 
