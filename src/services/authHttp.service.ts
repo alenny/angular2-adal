@@ -46,18 +46,18 @@ export class AuthHttp {
         return this.sendRequest(url, options1);
     }
 
-    private sendRequest(url: string, options: RequestOptionsArgs): Observable<any> {
+    private sendRequest(url: string, options: RequestOptionsArgs): Observable<string> {
         //make a copy
         let options1 = new RequestOptions();
         options1.method = options.method;
         options1 = options1.merge(options);
         
         let resource = this.adalService.GetResourceForEndpoint(url);
-        let authenticatedCall: Observable<any>;
+        let authenticatedCall: Observable<string>;
 
         if (resource) {
             if (this.adalService.userInfo.isAuthenticated) {
-                this.adalService.acquireToken(resource)
+                authenticatedCall = this.adalService.acquireToken(resource)
                     .flatMap((token: string) => {
                         if (options1.headers == null) {
                             options1.headers = new Headers();
@@ -66,7 +66,6 @@ export class AuthHttp {
                         return this.http.request(url, options1)
                             .catch(this.handleError);
                     });
-                authenticatedCall = Observable.create(() => <string>null);
             }
             else {
                 authenticatedCall = Observable.throw(new Error("User Not Authenticated."));
