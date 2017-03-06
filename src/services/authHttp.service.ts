@@ -54,7 +54,6 @@ export class AuthHttp {
         
         let resource = this.adalService.GetResourceForEndpoint(url);
         let authenticatedCall: Observable<string>;
-
         if (resource) {
             if (this.adalService.userInfo.isAuthenticated) {
                 authenticatedCall = this.adalService.acquireToken(resource)
