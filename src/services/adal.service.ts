@@ -94,18 +94,21 @@ export class AdalService {
     }
 
     public acquireToken(resource: string) {
+        var _this = this;   // save outer this for inner function
+
         let errorMessage: string;
         return Observable.bindCallback(acquireTokenInternal, function (token: string) {
             if (!token && errorMessage)
-                throw(errorMessage);
+                throw (errorMessage);
             return token;
         })();
 
         function acquireTokenInternal(cb: any) {
             let s: string = null;
-            this.adalContext.acquireToken(resource, (error: string, tokenOut: string) => {
+
+            _this.adalContext.acquireToken(resource, (error: string, tokenOut: string) => {
                 if (error) {
-                    this.adalContext.error('Error when acquiring token for resource: ' + resource, error);
+                    _this.adalContext.error('Error when acquiring token for resource: ' + resource, error);
                     errorMessage = error;
                     cb(<string>null);
                 } else {
