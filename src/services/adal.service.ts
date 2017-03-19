@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import * as adalLib from 'adal-angular';
-import {OAuthData} from "./oauthdata.model";
+import { OAuthData } from "./oauthdata.model";
 import User = adal.User;
 
 @Injectable()
@@ -152,11 +152,15 @@ export class AdalService {
     public GetResourceForEndpoint(url: string): string {
         return this.adalContext.getResourceForEndpoint(url);
     }
+    
+    public refreshDataFromCache() {
+        this.updateDataFromCache(this.adalContext.config.loginResource);
+    }
 
     private updateDataFromCache(resource: string): void {
         let token = this.adalContext.getCachedToken(resource);
         this.oauthData.isAuthenticated = token !== null && token.length > 0;
-        var user = this.adalContext.getCachedUser() || {userName: '', profile: undefined};
+        var user = this.adalContext.getCachedUser() || { userName: '', profile: undefined };
         if (user) {
             this.oauthData.userName = user.userName;
             this.oauthData.profile = user.profile;
