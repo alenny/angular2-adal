@@ -46,18 +46,15 @@ export class AuthHttp {
         return this.sendRequest(url, options1);
     }
 
-    private sendRequest(url: string, options: RequestOptionsArgs): Observable<any> {
+    private sendRequest(url: string, options: RequestOptionsArgs): Observable<string> {
         //make a copy
         let options1 = new RequestOptions();
         options1.method = options.method;
         options1 = options1.merge(options);
         
-        var resource = this.adalService.GetResourceForEndpoint(url);
-        var authenticatedCall: Observable<any>;
-
-
+        let resource = this.adalService.GetResourceForEndpoint(url);
+        let authenticatedCall: Observable<string>;
         if (resource) {
-
             if (this.adalService.userInfo.isAuthenticated) {
                 authenticatedCall = this.adalService.acquireToken(resource)
                     .flatMap((token: string) => {
