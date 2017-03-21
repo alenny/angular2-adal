@@ -8,4 +8,5 @@ NPM Package: https://www.npmjs.com/package/ng2-adal
 
 Example and guideline: 
 https://github.com/ranveeraggarwal/ng2-adal-QuickStart
+
 Pop-Up example : https://github.com/mazhisai/ng2-adal-QuickStart
