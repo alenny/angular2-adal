@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Http, Response, Headers, RequestOptionsArgs, RequestOptions, RequestMethod, URLSearchParams} from '@angular/http';
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import {AdalService} from './adal.service';
 
 @Injectable()
@@ -61,7 +61,7 @@ export class AuthHttp {
                         if (options1.headers == null) {
                             options1.headers = new Headers();
                         }
-                        options1.headers.append('Authorization', 'Bearer ' + token);
+                        options1.headers.set('Authorization', 'Bearer ' + token);
                         return this.http.request(url, options1)
                             .catch(this.handleError);
                     });
