@@ -78,6 +78,9 @@ export class AdalService {
                         if (requestInfo.parameters['access_token']) {
                             this.adalContext.callback(this.adalContext._getItem(this.adalContext.CONSTANTS.STORAGE.ERROR_DESCRIPTION)
                                 , requestInfo.parameters['access_token']);
+                        } else if (requestInfo.parameters['id_token']) {
+                            this.adalContext.callback(this.adalContext._getItem(this.adalContext.CONSTANTS.STORAGE.ERROR_DESCRIPTION)
+                                , requestInfo.parameters['id_token']);
                         }
                         else if (requestInfo.parameters['error']) {
                             this.adalContext.callback(this.adalContext._getItem(this.adalContext.CONSTANTS.STORAGE.ERROR_DESCRIPTION), null);
