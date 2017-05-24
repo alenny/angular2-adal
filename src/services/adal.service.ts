@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/bindCallback';
 import * as adalLib from 'adal-angular';
-import { OAuthData } from "./oauthdata.model";
+import { OAuthData } from './oauthdata.model';
 import User = adal.User;
 
 @Injectable()
@@ -21,8 +22,8 @@ export class AdalService {
         }
 
         // redirect and logout_redirect are set to current location by default
-        var existingHash = window.location.hash;
-        var pathDefault = window.location.href;
+        let existingHash = window.location.hash;
+        let pathDefault = window.location.href;
         if (existingHash) {
             pathDefault = pathDefault.replace(existingHash, '');
         }
@@ -97,17 +98,18 @@ export class AdalService {
     }
 
     public acquireToken(resource: string) {
-        var _this = this;   // save outer this for inner function
+        let _this = this;   // save outer this for inner function
 
         let errorMessage: string;
         return Observable.bindCallback(acquireTokenInternal, function (token: string) {
-            if (!token && errorMessage)
+            if (!token && errorMessage) {
                 throw (errorMessage);
+            }
             return token;
         })();
 
-        function acquireTokenInternal(cb: any) {
-            let s: string = null;
+        function acquireTokenInternal(cb: any): string {
+            let s: string = '';
 
             _this.adalContext.acquireToken(resource, (error: string, tokenOut: string) => {
                 if (error) {
@@ -155,7 +157,7 @@ export class AdalService {
     public GetResourceForEndpoint(url: string): string {
         return this.adalContext.getResourceForEndpoint(url);
     }
-    
+
     public refreshDataFromCache() {
         this.updateDataFromCache(this.adalContext.config.loginResource);
     }
@@ -163,7 +165,7 @@ export class AdalService {
     private updateDataFromCache(resource: string): void {
         let token = this.adalContext.getCachedToken(resource);
         this.oauthData.isAuthenticated = token !== null && token.length > 0;
-        var user = this.adalContext.getCachedUser() || { userName: '', profile: undefined };
+        let user = this.adalContext.getCachedUser() || { userName: '', profile: undefined };
         if (user) {
             this.oauthData.userName = user.userName;
             this.oauthData.profile = user.profile;

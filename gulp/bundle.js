@@ -12,34 +12,23 @@ const bundleConfig = {
         path.join('.', 'node_modules', '@angular', '*', 'package.json')
     ],
     paths: {
+        'npm:': './node_modules/',
         'ng2-adal/*': '*',
         '@angular/*': './node_modules/@angular/*',
         'adal-angular': './node_modules/adal-angular/lib/adal.js',
         '*': './node_modules/*'
     },
+    map: {
+        '@angular/core': 'npm:@angular/core/bundles/core.umd.js',
+        '@angular/common': 'npm:@angular/common/bundles/common.umd.js',
+        '@angular/compiler': 'npm:@angular/compiler/bundles/compiler.umd.js',
+        '@angular/platform-browser': 'npm:@angular/platform-browser/bundles/platform-browser.umd.js',
+        '@angular/http': 'npm:@angular/http/bundles/http.umd.js',
+        'rxjs': 'npm:rxjs'
+    },
     packages: {
-        '@angular/core': {
-            main: 'index.js',
-            defaultExtension: 'js'
-        },
-        '@angular/compiler': {
-            main: 'index.js',
-            defaultExtension: 'js'
-        },
-        '@angular/common': {
-            main: 'index.js',
-            defaultExtension: 'js'
-        },
-        '@angular/platform-browser': {
-            main: 'index.js',
-            defaultExtension: 'js'
-        },
 
-        '@angular/http' : {
-            main: 'index.js',
-            defaultExtension: 'js'
-        },
-        rxjs: {
+        'rxjs': {
             main: 'Rx.js',
             defaultExtension: 'js'
         }
