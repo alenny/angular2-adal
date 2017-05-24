@@ -54,7 +54,7 @@ export class AuthHttp {
         let options1 = new RequestOptions();
         options1.method = options.method;
         options1 = options1.merge(options);
-        let resource: string = this.adalService.GetResourceForEndpoint(url);
+        let resource = this.adalService.GetResourceForEndpoint(url);
         let authenticatedCall: Observable<string>;
         if (resource) {
             if (this.adalService.userInfo.isAuthenticated) {
