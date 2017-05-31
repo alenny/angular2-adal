@@ -1,7 +1,7 @@
 {
   "name": "ng2-adal",
-  "version": "0.3.1",
-  "description": "Use Azure AD Library - ADAL in Angular 2",
+  "version": "1.0.1",
+  "description": "Use Azure AD Library - ADAL in Angular 4 & 2. For Angular 4, use latest version 1.x.x. For Angular 2 use 0.3.1 version.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sureshchahal/angular2-adal.git"
@@ -15,7 +15,12 @@
     "angular2-adal",
     "ng2-adal",
     "adal-angular2",
-    "adal-ng2"
+    "adal-ng2",
+    "ng4-adal",
+    "angular4",
+    "ng4",
+    "angular4-adal",
+    "adal-angular4"
   ],
   "author": "Suresh Chahal",
   "license": "MIT",

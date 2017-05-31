@@ -1,8 +1,10 @@
 # <%= pkg.name %>  (https://travis-ci.org/salemdar/angular2-cookie) [![npm version](https://badge.fury.io/js/angular2-cookie.svg)](http://badge.fury.io/js/angular2-cookie) [![Downloads](http://img.shields.io/npm/dm/angular2-adal.svg)](https://npmjs.org/package/angular2-adal)
 
-> <%= pkg.description %> **v<%= pkg.version %>**
+> <%= pkg.description %> 
 
-_Upgraded to Angular2 release candidates._
+_Latest Version **v<%= pkg.version %>**
+
+_Upgraded to Angular 4._
 
 ## Table of contents:
 - [Get Started](#get-started)
