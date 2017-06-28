@@ -2,6 +2,9 @@ import {Injectable} from '@angular/core';
 import {Http, Response, Headers, RequestOptionsArgs, RequestOptions, RequestMethod, URLSearchParams} from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import {AdalService} from './adal.service';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/mergeMap';
 
 @Injectable()
 export class AuthHttp {
@@ -47,11 +50,10 @@ export class AuthHttp {
     }
 
     private sendRequest(url: string, options: RequestOptionsArgs): Observable<string> {
-        //make a copy
+        // make a copy
         let options1 = new RequestOptions();
         options1.method = options.method;
         options1 = options1.merge(options);
-        
         let resource = this.adalService.GetResourceForEndpoint(url);
         let authenticatedCall: Observable<string>;
         if (resource) {
@@ -67,7 +69,7 @@ export class AuthHttp {
                     });
             }
             else {
-                authenticatedCall = Observable.throw(new Error("User Not Authenticated."));
+                authenticatedCall = Observable.throw(new Error('User Not Authenticated.'));
             }
         }
         else {
@@ -82,9 +84,9 @@ export class AuthHttp {
             throw new Error('Bad response status: ' + res.status);
         }
 
-        var body = {};
-        //if there is some content, parse it
-        if (res.status != 204) {
+        let body = {};
+        // if there is some content, parse it
+        if (res.status !== 204) {
             body = res.json();
         }
 
@@ -92,10 +94,8 @@ export class AuthHttp {
     }
 
     private handleError(error: any) {
-        // In a real world app, we might send the error to remote logging infrastructure
-        let errMsg = error.message || 'Server error';
+        // in a real world app, we might send the error to remote logging infrastructure
         console.error(JSON.stringify(error)); // log to console instead
-
         return Observable.throw(error);
     }
 }

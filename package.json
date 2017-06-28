@@ -1,7 +1,7 @@
 {
   "name": "ng2-adal",
-  "version": "0.3.0",
-  "description": "Use Azure AD Library - ADAL in Angular 2",
+  "version": "1.0.1",
+  "description": "Use Azure AD Library - ADAL in Angular 4 & 2. For Angular 4, use latest version 1.x.x. For Angular 2 use 0.3.1 version.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sureshchahal/angular2-adal.git"
@@ -15,7 +15,12 @@
     "angular2-adal",
     "ng2-adal",
     "adal-angular2",
-    "adal-ng2"
+    "adal-ng2",
+    "ng4-adal",
+    "angular4",
+    "ng4",
+    "angular4-adal",
+    "adal-angular4"
   ],
   "author": "Suresh Chahal",
   "license": "MIT",
@@ -30,16 +35,16 @@
     "gulp": "gulp"
   },
   "dependencies": {
-    "@angular/common": "^2.0.0",
-    "@angular/compiler": "^2.0.0",
-    "@angular/core": "^2.0.0",
-    "@angular/http": "^2.0.0",
-    "@angular/platform-browser": "^2.0.0",
+  "@angular/common": "^4.1.0",
+    "@angular/compiler": "^4.1.0",
+    "@angular/core": "^4.1.0",
+    "@angular/http": "^4.1.0",
+    "@angular/platform-browser": "^4.1.0",
     "@types/adal": "^1.0.22",
     "adal-angular": "^1.0.14",
     "reflect-metadata": "^0.1.8",
-    "rxjs": "^5.0.0-beta.12",
-    "zone.js": "^0.7.7"
+    "rxjs": "^5.0.3",
+    "zone.js": "^0.8.11"
   },
   "devDependencies": {
     "del": "^2.2.0",
@@ -55,7 +60,7 @@
     "require-dir": "^0.3.0",
     "run-sequence": "^1.2.1",
     "systemjs-builder": "^0.16.3",
-    "typescript": "^2.0.6",
+    "typescript": "^2.3.3",
     "typings": "^1.5.0"
   }
 }
