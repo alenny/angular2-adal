@@ -15,6 +15,6 @@ This also provide `AuthHttp` class, which actually gets token in background for 
 NPM Package: https://www.npmjs.com/package/ng2-adal
 
 Example and guideline: 
-https://github.com/ranveeraggarwal/ng2-adal-QuickStart
+https://github.com/ranveeraggarwal/angular-adal-quickstart (An example for Angular 4 is on master - Angular 2 has its own branch)
 
 Pop-Up example : https://github.com/mazhisai/ng2-adal-QuickStart
