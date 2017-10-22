@@ -1,8 +1,9 @@
-import {Injectable} from '@angular/core';
-import 'rxjs/Rx';
-import {Observable} from "rxjs/Observable";
-import adalLib = require('adal');
-import {OAuthData} from "./oauthdata.model";
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/bindCallback';
+import * as adalLib from 'adal-angular';
+import { OAuthData } from './oauthdata.model';
+import User = adal.User;
 
 @Injectable()
 export class AdalService {
@@ -21,8 +22,8 @@ export class AdalService {
         }
 
         // redirect and logout_redirect are set to current location by default
-        var existingHash = window.location.hash;
-        var pathDefault = window.location.href;
+        let existingHash = window.location.hash;
+        let pathDefault = window.location.href;
         if (existingHash) {
             pathDefault = pathDefault.replace(existingHash, '');
         }
@@ -32,6 +33,8 @@ export class AdalService {
 
         // create instance with given config
         this.adalContext = adalLib.inject(configOptions);
+
+        window.AuthenticationContext = this.adalContext.constructor;
 
         // loginresource is used to set authenticated status
         this.updateDataFromCache(this.adalContext.config.loginResource);
@@ -64,7 +67,28 @@ export class AdalService {
             this.adalContext.saveTokenFromHash(requestInfo);
             if (requestInfo.requestType === this.adalContext.REQUEST_TYPE.LOGIN) {
                 this.updateDataFromCache(this.adalContext.config.loginResource);
+
             } else if (requestInfo.requestType === this.adalContext.REQUEST_TYPE.RENEW_TOKEN) {
+                this.adalContext.callback = window.parent.callBackMappedToRenewStates[requestInfo.stateResponse];
+            }
+
+            if (requestInfo.stateMatch) {
+                if (typeof this.adalContext.callback === 'function') {
+                    if (requestInfo.requestType === this.adalContext.REQUEST_TYPE.RENEW_TOKEN) {
+                        // Idtoken or Accestoken can be renewed
+                        if (requestInfo.parameters['access_token']) {
+                            this.adalContext.callback(this.adalContext._getItem(this.adalContext.CONSTANTS.STORAGE.ERROR_DESCRIPTION)
+                                , requestInfo.parameters['access_token']);
+                        } else if (requestInfo.parameters['id_token']) {
+                            this.adalContext.callback(this.adalContext._getItem(this.adalContext.CONSTANTS.STORAGE.ERROR_DESCRIPTION)
+                                , requestInfo.parameters['id_token']);
+                        }
+                        else if (requestInfo.parameters['error']) {
+                            this.adalContext.callback(this.adalContext._getItem(this.adalContext.CONSTANTS.STORAGE.ERROR_DESCRIPTION), null);
+                            this.adalContext._renewFailed = true;
+                        }
+                    }
+                }
             }
         }
     }
@@ -74,20 +98,35 @@ export class AdalService {
     }
 
     public acquireToken(resource: string) {
-        return Observable.bindCallback(function (cb) {
-            this.adalContext.acquireToken(resource, function (error: string, tokenOut: string) {
+        let _this = this;   // save outer this for inner function
+
+        let errorMessage: string;
+        return Observable.bindCallback(acquireTokenInternal, function (token: string) {
+            if (!token && errorMessage) {
+                throw (errorMessage);
+            }
+            return token;
+        })();
+
+        function acquireTokenInternal(cb: any): string {
+            let s: string = '';
+
+            _this.adalContext.acquireToken(resource, (error: string, tokenOut: string) => {
                 if (error) {
-                    this.adalContext.error('Error when acquiring token for resource: ' + resource, error);
-                    cb(null);
+                    _this.adalContext.error('Error when acquiring token for resource: ' + resource, error);
+                    errorMessage = error;
+                    cb(<string>null);
                 } else {
                     cb(tokenOut);
+                    s = tokenOut;
                 }
             });
-        });
+            return s;
+        }
     }
 
     public getUser(): Observable<adal.User> {
-        return Observable.bindCallback(function (cb: (u: adal.User) => void) {
+        return Observable.bindCallback<User>((cb: (u: adal.User) => User) => {
             this.adalContext.getUser(function (error: string, user: adal.User) {
                 if (error) {
                     this.adalContext.error('Error when getting user', error);
@@ -115,18 +154,21 @@ export class AdalService {
         this.adalContext.verbose(message);
     }
 
+    public GetResourceForEndpoint(url: string): string {
+        return this.adalContext.getResourceForEndpoint(url);
+    }
+
+    public refreshDataFromCache() {
+        this.updateDataFromCache(this.adalContext.config.loginResource);
+    }
+
     private updateDataFromCache(resource: string): void {
         let token = this.adalContext.getCachedToken(resource);
         this.oauthData.isAuthenticated = token !== null && token.length > 0;
-        var user = this.adalContext.getCachedUser();
-        if (user) {
-            this.oauthData.userName = user.userName;
-            this.oauthData.profile = user.profile;
-            this.oauthData.loginError = this.adalContext.getLoginError();
-        } else {
-            this.oauthData.userName = '';
-            this.oauthData.profile = {};
-            this.oauthData.loginError = '';
-        }
+        let user = this.adalContext.getCachedUser() || { userName: '', profile: undefined };
+        this.oauthData.userName = user.userName;
+        this.oauthData.profile = user.profile;
+        this.oauthData.loginError = this.adalContext.getLoginError();
+
     };
 }

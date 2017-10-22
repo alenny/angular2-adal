@@ -1,8 +1,10 @@
 # <%= pkg.name %>  (https://travis-ci.org/salemdar/angular2-cookie) [![npm version](https://badge.fury.io/js/angular2-cookie.svg)](http://badge.fury.io/js/angular2-cookie) [![Downloads](http://img.shields.io/npm/dm/angular2-adal.svg)](https://npmjs.org/package/angular2-adal)
 
-> <%= pkg.description %> **v<%= pkg.version %>**
+> <%= pkg.description %> 
 
-_Upgraded to Angular2 release candidates._
+_Latest Version **v<%= pkg.version %>**
+
+_Upgraded to Angular 4._
 
 ## Table of contents:
 - [Get Started](#get-started)
@@ -30,10 +32,10 @@ You can install this package locally with npm.
 
 ```bash
 # To get the latest stable version and update package.json file:
-npm install angular2-adal --save
+npm install ng2-adal --save
 ```
 
-After installing the library, you need to include angular2-adal and adal in the SystemJS configurations.
+After installing the library, you need to include ng2-adal and adal in the SystemJS configurations.
 
 ```javascript
 /**
@@ -47,7 +49,7 @@ After installing the library, you need to include angular2-adal and adal in the 
     'angular2-in-memory-web-api': 'lib/angular2-in-memory-web-api',
     'rxjs': 'lib/rxjs',
     'angular2-cookie': 'lib/angular2-cookie',
-    'angular2-adal': 'lib/angular2-adal',
+    'ng2-adal': 'lib/ng2-adal',
     'adal': 'lib/adal-angular/lib'
   };
   // packages tells the System loader how to load when no filename and/or no extension
@@ -56,7 +58,7 @@ After installing the library, you need to include angular2-adal and adal in the 
     'rxjs': { defaultExtension: 'js' },
     'angular2-in-memory-web-api': { defaultExtension: 'js' },
     'angular2-cookie': { main: 'core.js', defaultExtension: 'js' },
-    'angular2-adal': { main: 'core.js', defaultExtension: 'js' },
+    'ng2-adal': { main: 'core.js', defaultExtension: 'js' },
     'adal': { main: 'adal.js', defaultExtension: 'js' }
   };
   var ngPackageNames = [
@@ -85,7 +87,7 @@ After installing the library, you need to include angular2-adal and adal in the 
 To enable building TypeScript, you need to add ADAL library definitions to typings/index.d.ts.
 
 ```typescript
-/// <reference path="../node_modules/angular2-adal/typings/adal/index.d.ts" />
+/// <reference path="../node_modules/ng2-adal/typings/adal/index.d.ts" />
 /// <reference path="globals/core-js/index.d.ts" />
 /// <reference path="globals/jasmine/index.d.ts" />
 ```

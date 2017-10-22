@@ -7,11 +7,19 @@
     "outDir": "dist/",
     "rootDir": "src/",
     "sourceMap": true,
-    "removeComments": false
+    "removeComments": false,
+    "lib": [
+      "es2015",
+      "dom"
+    ],
+    "types": [
+      "adal"
+    ]
   },
   "exclude": [
     "node_modules",
     "gulp",
     "dist"
-  ]
+  ],
+  "skipLibCheck": true
 }

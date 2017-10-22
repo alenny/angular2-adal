@@ -8,4 +8,3 @@ src/**/*.js
 src/**/*.map
 .tmp
 test-built
-typings

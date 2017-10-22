@@ -1,7 +1,20 @@
-# angular2-adal
+# ng2-adal
+
+`master` branch of this repo is now Angular 4+ compatible. Thanks to @Cyberdada.
+For Angular2, I have created a separate `Angular 2` branch. NPM package starting from version 2.0 is for Angular 4. Packages 1.x are for Angular 2.
+
+**BREAKING CHANGE**: Make sure you're importing AdalService like this: `import { AdalService } from "ng2-adal/dist/core"`
+
+**Note**: NPM package 1.02 is also Angular 4 and was published by mistake, you can ignore that one
+
 
 To do authentication against Microsoft Windows Azure AD, using the Microsoft ADAL library underneath. Note this library is extracted from the <b>adal-angular</b> package.
 
-NPM Package: https://www.npmjs.com/package/angular2-adal
+This also provide `AuthHttp` class, which actually gets token in background for external webapis.
 
-Example and guideline: https://github.com/alenny/angular2-adal-example
+NPM Package: https://www.npmjs.com/package/ng2-adal
+
+Example and guideline: 
+https://github.com/ranveeraggarwal/angular-adal-quickstart (An example for Angular 4 is on master - Angular 2 has its own branch)
+
+Pop-Up example : https://github.com/mazhisai/ng2-adal-QuickStart
