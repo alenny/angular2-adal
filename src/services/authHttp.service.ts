@@ -95,8 +95,6 @@ export class AuthHttp {
     }
 
     private handleError(error: any) {
-        // in a real world app, we might send the error to remote logging infrastructure
-        console.error(JSON.stringify(error)); // log to console instead
         return Observable.throw(error);
     }
 }

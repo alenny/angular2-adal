@@ -126,7 +126,7 @@ export class AdalService {
     }
 
     public getUser(): Observable<adal.User> {
-        return Observable.bindCallback((cb: (u: adal.User) => User) => {
+        return Observable.bindCallback<User>((cb: (u: adal.User) => User) => {
             this.adalContext.getUser(function (error: string, user: adal.User) {
                 if (error) {
                     this.adalContext.error('Error when getting user', error);
@@ -166,16 +166,9 @@ export class AdalService {
         let token = this.adalContext.getCachedToken(resource);
         this.oauthData.isAuthenticated = token !== null && token.length > 0;
         let user = this.adalContext.getCachedUser() || { userName: '', profile: undefined };
-        if (user) {
-            this.oauthData.userName = user.userName;
-            this.oauthData.profile = user.profile;
-            this.oauthData.loginError = this.adalContext.getLoginError();
-        }
-        else {
-            this.oauthData.userName = '';
-            this.oauthData.profile = {};
-            this.oauthData.loginError = '';
-        }
+        this.oauthData.userName = user.userName;
+        this.oauthData.profile = user.profile;
+        this.oauthData.loginError = this.adalContext.getLoginError();
 
     };
 }
