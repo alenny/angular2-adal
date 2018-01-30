@@ -53,8 +53,4 @@ export class AuthHttpInterceptor implements HttpInterceptor {
             return next.handle(request);
         }
       }
-
-      private handleError(error: any) {
-        return Observable.throw(error);
-    }
 }
