@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpHeaders, HttpInterceptor} from '@angular/common/http';
-import { AdalService } from '../services/adal.service';
+import { AdalService } from 'ngx-adal-test/services/adal.service';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/observable/throw';
 
 
 @Injectable()
@@ -33,12 +35,9 @@ export class AuthHttpInterceptor implements HttpInterceptor {
         } else {
             throw new Error('User Not Authenticated.');
         }
-        return next.handle(request);
+        return next.handle(request).catch(this.handleError);
     }
-    intercept(
-        request: HttpRequest<any>,
-        next: HttpHandler
-      ): Observable<HttpEvent<any>> {
+    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
          const resource: any  = this.adalService.GetResourceForEndpoint(request.url);
          const token: any = this.adalService.acquireToken(resource);
         if (resource) {
@@ -53,4 +52,8 @@ export class AuthHttpInterceptor implements HttpInterceptor {
             return next.handle(request);
         }
       }
+
+      private handleError(error: any) {
+        return Observable.throw(error);
+    }
 }
